@@ -1,0 +1,24 @@
+services:
+    makxtr\DoctrineBatchInsert\Validator\EntityCollectionValidator:
+        public: false
+
+    makxtr\DoctrineBatchInsert\Analyzer\EntityRelationsAnalyzer:
+        public: false
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+
+    makxtr\DoctrineBatchInsert\Validator\EntityCollectionValidatorInterface:
+        alias: makxtr\DoctrineBatchInsert\Validator\EntityCollectionValidator
+
+    makxtr\DoctrineBatchInsert\Analyzer\EntityRelationsAnalyzerInterface:
+        alias: makxtr\DoctrineBatchInsert\Analyzer\EntityRelationsAnalyzer
+
+    makxtr\DoctrineBatchInsert\BatchInsertService:
+        arguments:
+            $em: '@doctrine.orm.entity_manager'
+            $collectionValidator: '@makxtr\DoctrineBatchInsert\Validator\EntityCollectionValidatorInterface'
+            $entityRelationsAnalyzer: '@makxtr\DoctrineBatchInsert\Analyzer\EntityRelationsAnalyzerInterface'
+        lazy: true
+
+    makxtr\DoctrineBatchInsert\BatchInsertServiceInterface:
+        alias: makxtr\DoctrineBatchInsert\BatchInsertService
