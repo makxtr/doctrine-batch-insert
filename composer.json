@@ -1,6 +1,6 @@
 {
   "name": "makxtr/doctrine-batch-insert",
-  "description": "Batch insert bundle for Doctrine ORM (Communication Tools Team)",
+  "description": "Batch insert bundle for Doctrine ORM",
   "keywords" : ["batch insert", "doctrine", "symfony bundle"],
   "authors": [
     {
