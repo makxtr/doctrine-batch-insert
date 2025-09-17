@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace makxtr\DoctrineBatchInsert;
 
-use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
@@ -21,7 +20,6 @@ use makxtr\DoctrineBatchInsert\PrimaryKeyGeneratorStrategy\PrimaryKeyGeneratorSt
 use makxtr\DoctrineBatchInsert\UpdateStrategy\UpdateStrategyInterface;
 use makxtr\DoctrineBatchInsert\Validator\EntityCollectionValidatorInterface;
 use makxtr\DoctrineBatchInsert\Util\BatchInsertOptions;
-use makxtr\DoctrineBatchInsert\Util\StringHelper;
 use Symfony\Component\Uid\Uuid;
 use Throwable;
 
@@ -200,33 +198,23 @@ class BatchInsertService implements BatchInsertServiceInterface
         }
 
         if (is_string($value)) {
-            return sprintf("'%s'", StringHelper::prepareStringValueForInsert($value));
+            return $this->connection->quote($value);
         }
 
         if (is_null($value)) {
             return 'null';
         }
 
-        if ($value instanceof DateTimeImmutable) {
-            $value = StringHelper::prepareStringValueForInsert(
-                $value->format(BatchInsertOptions::TIME_FORMAT)
-            );
-
-            return sprintf("'%s'", $value);
+        if ($value instanceof \DateTimeImmutable) {
+            return $this->connection->quote($value->format(BatchInsertOptions::TIME_FORMAT));
         }
 
         if ($value instanceof Uuid) {
-            $value = StringHelper::prepareStringValueForInsert($value->__toString());
-
-            return sprintf("'%s'", $value);
+            return $this->connection->quote($value->__toString());
         }
 
         if (is_array($value)) {
-            $jsonString = StringHelper::prepareStringValueForInsert(
-                json_encode($value, JSON_THROW_ON_ERROR)
-            );
-
-            return sprintf("'%s'", $jsonString);
+            return $this->connection->quote(json_encode($value, JSON_THROW_ON_ERROR));
         }
 
         return $value;
