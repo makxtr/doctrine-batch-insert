@@ -18,6 +18,7 @@ use makxtr\DoctrineBatchInsert\Builder\BatchInsertSQLBuilder;
 use makxtr\DoctrineBatchInsert\DTO\Request\BatchInsertRequest;
 use makxtr\DoctrineBatchInsert\PrimaryKeyGeneratorStrategy\PrimaryKeyGeneratorStrategy;
 use makxtr\DoctrineBatchInsert\UpdateStrategy\UpdateStrategyInterface;
+use makxtr\DoctrineBatchInsert\Util\StringHelper;
 use makxtr\DoctrineBatchInsert\Validator\EntityCollectionValidatorInterface;
 use makxtr\DoctrineBatchInsert\Util\BatchInsertOptions;
 use Symfony\Component\Uid\Uuid;
@@ -63,7 +64,7 @@ class BatchInsertService implements BatchInsertServiceInterface
 
         $this->collectionValidator->validateCollectionBeforeLightInsert($entityCollection);
 
-        $tableName = $this->getEntityCollectionClassMetadata($entityCollection)->table['name'];
+        $tableName = $this->getEntityCollectionClassMetadata($entityCollection)->getTableName();
         $entitiesData = $this->getEntitiesData($entityCollection);
 
         $sql = $this->prepareLightQueryForInsert($tableName, $entitiesData);
@@ -86,7 +87,7 @@ class BatchInsertService implements BatchInsertServiceInterface
         $this->collectionValidator->validateCollectionBeforeLightInsert($entityCollection);
 
         $classMetadata = $this->getEntityCollectionClassMetadata($entityCollection);
-        $tableName = $classMetadata->table['name'];
+        $tableName = $classMetadata->getTableName();
         $entitiesData = $this->getEntitiesData($entityCollection);
 
         $allFields = array_keys($entitiesData[0]);
