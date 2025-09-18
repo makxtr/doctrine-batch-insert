@@ -1,9 +1,7 @@
 services:
     makxtr\DoctrineBatchInsert\Validator\EntityCollectionValidator:
-        public: false
 
     makxtr\DoctrineBatchInsert\Analyzer\EntityRelationsAnalyzer:
-        public: false
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
 
