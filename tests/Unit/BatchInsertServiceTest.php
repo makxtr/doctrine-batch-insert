@@ -113,48 +113,48 @@ class BatchInsertServiceTest extends TestCase
                     self::createBatchInsertableEntity(['id' => 1, 'name' => 'Test Entity 1', 'active' => true]),
                     self::createBatchInsertableEntity(['id' => 2, 'name' => 'Test Entity 2', 'active' => false]),
                 ]),
-                'test_entities',
-                "INSERT INTO test_entities (id, name, active) VALUES (1, 'Test Entity 1', '1'), (2, 'Test Entity 2', '0')",
+                $tableName = 'test_entities',
+                "INSERT INTO $tableName (id, name, active) VALUES (1, 'Test Entity 1', '1'), (2, 'Test Entity 2', '0')",
             ],
 
             '1 entity with escaped quote' => [
                 new ArrayCollection([
                     self::createBatchInsertableEntity(['id' => 10, 'name' => 'Single Entity', 'more_field' => "O'Reilly", 'active' => true]),
                 ]),
-                'single_table',
-                "INSERT INTO single_table (id, name, more_field, active) VALUES (10, 'Single Entity', 'O'Reilly', '1')",
+                $tableName = 'single_table',
+                "INSERT INTO $tableName (id, name, more_field, active) VALUES (10, 'Single Entity', 'O'Reilly', '1')",
             ],
 
             'with null' => [
                 new ArrayCollection([
                     self::createBatchInsertableEntity(['id' => 100, 'name' => null, 'active' => false]),
                 ]),
-                'nullable_table',
-                "INSERT INTO nullable_table (id, name, active) VALUES (100, null, '0')",
+                $tableName = 'nullable_table',
+                "INSERT INTO $tableName (id, name, active) VALUES (100, null, '0')",
             ],
 
             'with DateTimeImmutable' => [
                 new ArrayCollection([
                     self::createBatchInsertableEntity(['id' => 200, 'created_at' => new \DateTimeImmutable($createdAt = '2023-05-10 12:34:56')]),
                 ]),
-                'datetime_table',
-                "INSERT INTO datetime_table (id, created_at) VALUES (200, '$createdAt')",
+                $tableName = 'datetime_table',
+                "INSERT INTO $tableName (id, created_at) VALUES (200, '$createdAt')",
             ],
 
             'with array' => [
                 new ArrayCollection([
                     self::createBatchInsertableEntity(['id' => 300, 'data' => ['foo' => 'bar', 'baz' => 123]]),
                 ]),
-                'array_table',
-                "INSERT INTO array_table (id, data) VALUES (300, '{\"foo\":\"bar\",\"baz\":123}')",
+                $tableName = 'array_table',
+                "INSERT INTO $tableName (id, data) VALUES (300, '{\"foo\":\"bar\",\"baz\":123}')",
             ],
 
             'with Uuid' => [
                 new ArrayCollection([
                     self::createBatchInsertableEntity(['id' => 400, 'uuid' => $uuid = Uuid::v4()]),
                 ]),
-                'uuid_table',
-                "INSERT INTO uuid_table (id, uuid) VALUES (400, '$uuid')",
+                $tableName = 'uuid_table',
+                "INSERT INTO $tableName (id, uuid) VALUES (400, '$uuid')",
             ],
         ];
     }
