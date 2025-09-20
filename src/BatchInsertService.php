@@ -18,7 +18,6 @@ use makxtr\DoctrineBatchInsert\Builder\BatchInsertSQLBuilder;
 use makxtr\DoctrineBatchInsert\DTO\Request\BatchInsertRequest;
 use makxtr\DoctrineBatchInsert\PrimaryKeyGeneratorStrategy\PrimaryKeyGeneratorStrategy;
 use makxtr\DoctrineBatchInsert\UpdateStrategy\UpdateStrategyInterface;
-use makxtr\DoctrineBatchInsert\Util\StringHelper;
 use makxtr\DoctrineBatchInsert\Validator\EntityCollectionValidatorInterface;
 use makxtr\DoctrineBatchInsert\Util\BatchInsertOptions;
 use Symfony\Component\Uid\Uuid;
