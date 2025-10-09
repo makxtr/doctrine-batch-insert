@@ -2,11 +2,11 @@
 
 Batch insert utility for [Doctrine ORM](https://www.doctrine-project.org/)
 
-## 📦 Installation
+## Installation
 
 Since this package is hosted in a private GitLab repository, you'll need to add it to your project manually.
 
-****### 1. Add the repository to your `composer.json`:
+**** 1. Add the repository to your `composer.json`:
 
 ```json
 {
@@ -17,15 +17,15 @@ Since this package is hosted in a private GitLab repository, you'll need to add 
     }
   ],
   "require": {
-    "php/doctrine-batch-insert": "dev-master"
+    "makxtr/doctrine-batch-insert": "dev-master"
   }
 }
-```****
+```
 
 ### 2. Install via Composer:
 
 ```bash
-composer require php/doctrine-batch-insert
+composer require makxtr/doctrine-batch-insert
 ```
 
 ### 3. Symfony Integration
@@ -39,7 +39,7 @@ public function __construct(
 ) {}
 ```
 
-## 🏗️ Basic Setup
+## Basic Setup
 
 ### 1. Implement BatchInsertableInterface
 
@@ -111,7 +111,7 @@ class DataImportController
 }
 ```
 
-## 📖 Methods Overview
+## Methods Overview
 
 ### `lightBatchInsert()`
 
@@ -174,17 +174,7 @@ $request = new BatchInsertRequest(
 $results = $batchInsertService->batchInsertWithResult($request);
 ```
 
-## 📊 Method Comparison
-
-| Method | Performance | Relations | Result | Strategies | Use Case |
-|--------|-------------|-----------|---------|------------|----------|
-| `lightBatchInsert` | ⭐⭐⭐⭐⭐ | ❌ | ❌ | ❌ | Simple bulk inserts |
-| `lightBatchInsertWithResult` | ⭐⭐⭐⭐ | ❌ | ✅ | ❌ | Simple inserts + results |
-| `batchInsert` | ⭐⭐⭐ | ✅ | ❌ | ✅ | Complex scenarios |
-| `batchInsertWithResult` | ⭐⭐ | ✅ | ✅ | ✅ | Maximum functionality |
-
-
-## 🛡️ Conflict Resolution Strategies
+## Conflict Resolution Strategies
 
 ### DefaultStrategy
 Standard INSERT without special duplicate handling.
@@ -238,7 +228,7 @@ $request = new BatchInsertRequest(
 );
 ```
 
-## 🗄️ Database Support
+## Database Support
 
 ### MySQL
 ### PostgreSQL
@@ -327,7 +317,7 @@ $request = new BatchInsertRequest(
 $batchInsertService->batchInsert($request);
 ```
 
-## 🔧 Advanced Configuration
+## Advanced Configuration
 
 ### BatchInsertRequest Parameters
 
@@ -343,7 +333,7 @@ $request = new BatchInsertRequest(
 );
 ```
 
-## 🛠️ Migration from Regular Doctrine
+## Migration from Regular Doctrine
 
 ### Before:
 ```php
@@ -486,7 +476,7 @@ class BatchInsertableTest extends KernelTestCase
 ```
 
 
-## 🎉 Conclusion
+## Conclusion
 
 The Doctrine Batch Insert Bundle provides a powerful and flexible tool for bulk database operations. Choose the appropriate method based on your needs:
 
